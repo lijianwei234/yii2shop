@@ -152,6 +152,7 @@ class View extends Component implements DynamicContentAwareInterface
      */
     public function render($view, $params = [], $context = null)
     {
+        //返回视图文件存放路径
         $viewFile = $this->findViewFile($view, $context);
         return $this->renderFile($viewFile, $params, $context);
     }
@@ -167,8 +168,10 @@ class View extends Component implements DynamicContentAwareInterface
      * @throws InvalidCallException if a relative view name is given while there is no active context to
      * determine the corresponding view file.
      */
+    //继承了controller就等于继承了ViewContextInterface接口
     protected function findViewFile($view, $context = null)
-    {
+    {   
+        /*二进制安全比较字符串大小*/
         if (strncmp($view, '@', 1) === 0) {
             // e.g. "@app/views/main"
             $file = Yii::getAlias($view);
@@ -189,7 +192,6 @@ class View extends Component implements DynamicContentAwareInterface
         } else {
             throw new InvalidCallException("Unable to resolve view file for view '$view': no active view context.");
         }
-
         if (pathinfo($file, PATHINFO_EXTENSION) !== '') {
             return $file;
         }
@@ -230,6 +232,7 @@ class View extends Component implements DynamicContentAwareInterface
         if (is_file($viewFile)) {
             $viewFile = FileHelper::localize($viewFile);
         } else {
+            /*没有对应的视图文件将在这里抛出异常*/
             throw new ViewNotFoundException("The view file does not exist: $viewFile");
         }
 

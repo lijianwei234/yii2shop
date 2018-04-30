@@ -383,6 +383,10 @@ abstract class Application extends Module
             $this->trigger(self::EVENT_BEFORE_REQUEST);
 
             $this->state = self::STATE_HANDLING_REQUEST;
+            // $class = new \ReflectionClass($this);
+            // $methods = $class->getmethods();
+            // var_dump($methods);
+            // exit;
             $response = $this->handleRequest($this->getRequest());
 
             $this->state = self::STATE_AFTER_REQUEST;

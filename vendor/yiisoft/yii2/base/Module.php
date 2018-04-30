@@ -532,7 +532,6 @@ class Module extends ServiceLocator
 
             return $result;
         }
-
         $id = $this->getUniqueId();
         throw new InvalidRouteException('Unable to resolve the request "' . ($id === '' ? $route : $id . '/' . $route) . '".');
     }
@@ -625,11 +624,9 @@ class Module extends ServiceLocator
             $prefix = substr($id, 0, $pos + 1);
             $className = substr($id, $pos + 1);
         }
-
         if ($this->isIncorrectClassNameOrPrefix($className, $prefix)) {
             return null;
         }
-
         $className = preg_replace_callback('%-([a-z0-9_])%i', function ($matches) {
                 return ucfirst($matches[1]);
             }, ucfirst($className)) . 'Controller';
