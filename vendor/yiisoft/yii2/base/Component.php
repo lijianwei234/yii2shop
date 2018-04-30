@@ -601,7 +601,6 @@ class Component extends BaseObject
     public function trigger($name, Event $event = null)
     {
         $this->ensureBehaviors();
-
         $eventHandlers = [];
         foreach ($this->_eventWildcards as $wildcard => $handlers) {
             if (StringHelper::matchWildcard($wildcard, $name)) {
@@ -631,7 +630,12 @@ class Component extends BaseObject
                 }
             }
         }
-
+        // if ($name == 'beforeAction') {
+        //     var_dump($name);
+        //     var_dump($event);
+        //     var_dump(get_class($this));
+        //     exit;
+        // }
         // invoke class-level attached handlers
         Event::trigger($this, $name, $event);
     }

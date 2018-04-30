@@ -123,14 +123,19 @@ class Controller extends Component implements ViewContextInterface
      */
     public function runAction($id, $params = [])
     {
+        /*返回
+            1.使用方法
+            2.方法id，即action后面的方法名
+            3.该方法所在的类
+        */
         $action = $this->createAction($id);
         if ($action === null) {
             throw new InvalidRouteException('Unable to resolve the request: ' . $this->getUniqueId() . '/' . $id);
         }
 
         Yii::debug('Route to run: ' . $action->getUniqueId(), __METHOD__);
-
         if (Yii::$app->requestedAction === null) {
+            //给yii\web\Aplication添加requestedAction属性
             Yii::$app->requestedAction = $action;
         }
 
@@ -139,7 +144,6 @@ class Controller extends Component implements ViewContextInterface
 
         $modules = [];
         $runAction = true;
-
         // call beforeAction on modules
         foreach ($this->getModules() as $module) {
             if ($module->beforeAction($action)) {
@@ -151,9 +155,15 @@ class Controller extends Component implements ViewContextInterface
         }
 
         $result = null;
-
         if ($runAction && $this->beforeAction($action)) {
             // run the action
+            // if ($id == 'index') {
+            //     $class = new \ReflectionClass($action);
+            //     $methods = $class->getmethods();
+            //     var_dump($methods);
+            //     var_dump($params);
+            //     exit;
+            // }
             $result = $action->runWithParams($params);
 
             $result = $this->afterAction($action, $result);

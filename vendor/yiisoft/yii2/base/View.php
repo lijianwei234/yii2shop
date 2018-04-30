@@ -186,6 +186,7 @@ class View extends Component implements DynamicContentAwareInterface
                 throw new InvalidCallException("Unable to locate view file for view '$view': no active controller.");
             }
         } elseif ($context instanceof ViewContextInterface) {
+            //$context->Controller实例
             $file = $context->getViewPath() . DIRECTORY_SEPARATOR . $view;
         } elseif (($currentViewFile = $this->getViewFile()) !== false) {
             $file = dirname($currentViewFile) . DIRECTORY_SEPARATOR . $view;
@@ -235,14 +236,12 @@ class View extends Component implements DynamicContentAwareInterface
             /*没有对应的视图文件将在这里抛出异常*/
             throw new ViewNotFoundException("The view file does not exist: $viewFile");
         }
-
         $oldContext = $this->context;
         if ($context !== null) {
             $this->context = $context;
         }
         $output = '';
         $this->_viewFiles[] = $viewFile;
-
         if ($this->beforeRender($viewFile, $params)) {
             Yii::debug("Rendering view file: $viewFile", __METHOD__);
             $ext = pathinfo($viewFile, PATHINFO_EXTENSION);
@@ -254,11 +253,12 @@ class View extends Component implements DynamicContentAwareInterface
                 $renderer = $this->renderers[$ext];
                 $output = $renderer->render($this, $viewFile, $params);
             } else {
+                //得到页面中的内容
                 $output = $this->renderPhpFile($viewFile, $params);
             }
             $this->afterRender($viewFile, $params, $output);
         }
-
+        //删除数组中的最后一个元素
         array_pop($this->_viewFiles);
         $this->context = $oldContext;
 
@@ -334,8 +334,11 @@ class View extends Component implements DynamicContentAwareInterface
         $_obInitialLevel_ = ob_get_level();
         ob_start();
         ob_implicit_flush(false);
+        //如果有冲突，覆盖已有的变量
         extract($_params_, EXTR_OVERWRITE);
         try {
+            //1.将文件中的内容获取到缓冲里面。
+            //2.将缓冲区里面的数据返回并清除缓冲区中的内容.
             require $_file_;
             return ob_get_clean();
         } catch (\Exception $e) {

@@ -153,9 +153,12 @@ class Container extends Component
             // singleton
             return $this->_singletons[$class];
         } elseif (!isset($this->_definitions[$class])) {
+            // if ($class == 'app\controllers\ProductController') {
+            //     echo 123;
+            //     exit;
+            // }
             return $this->build($class, $params, $config);
         }
-
         $definition = $this->_definitions[$class];
 
         if (is_callable($definition, true)) {
@@ -362,16 +365,25 @@ class Container extends Component
     {
         /* @var $reflection ReflectionClass */
         list($reflection, $dependencies) = $this->getDependencies($class);
-
+        // if ($class == 'app\controllers\ProductController') {
+        //     var_dump($reflection);
+        //     var_dump($dependencies);    
+        //     exit;
+        // }
+        
         foreach ($params as $index => $param) {
             $dependencies[$index] = $param;
         }
-
         $dependencies = $this->resolveDependencies($dependencies, $reflection);
         if (!$reflection->isInstantiable()) {
             throw new NotInstantiableException($reflection->name);
         }
         if (empty($config)) {
+            /*通过从$dependencies中创建出新的类的实例*/
+            // if ($class == 'app\controllers\ProductController') {
+            //     print_r($reflection->newInstanceArgs($dependencies));
+            //     exit;
+            // }
             return $reflection->newInstanceArgs($dependencies);
         }
 
@@ -426,9 +438,10 @@ class Container extends Component
 
         $dependencies = [];
         $reflection = new ReflectionClass($class);
-
+        //获取类的构造函数
         $constructor = $reflection->getConstructor();
         if ($constructor !== null) {
+            //遍历参数
             foreach ($constructor->getParameters() as $param) {
                 if (version_compare(PHP_VERSION, '5.6.0', '>=') && $param->isVariadic()) {
                     break;
@@ -443,7 +456,11 @@ class Container extends Component
 
         $this->_reflections[$class] = $reflection;
         $this->_dependencies[$class] = $dependencies;
-
+        // if ($class == 'app\controllers\ProductController') {
+        //     var_dump($reflection);
+        //     var_dump($dependencies);
+        //     exit;
+        // }
         return [$reflection, $dependencies];
     }
 

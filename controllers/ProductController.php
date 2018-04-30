@@ -11,6 +11,7 @@ class ProductController extends Controller
 		// $methods = $class->getmethods();
 		// var_dump($methods);
 		// exit;
+		//\yii2\base\View.php
 		return $this->render('index');
 	}
 }

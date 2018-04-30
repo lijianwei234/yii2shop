@@ -519,17 +519,24 @@ class Module extends ServiceLocator
      */
     public function runAction($route, $params = [])
     {
+        //创建控制器对象
         $parts = $this->createController($route);
         if (is_array($parts)) {
             /* @var $controller Controller */
             list($controller, $actionID) = $parts;
             $oldController = Yii::$app->controller;
+            //给yii\web\Application设置controller属性
             Yii::$app->controller = $controller;
+            // if ($route == 'product/index') {
+            //     $class = new \ReflectionClass($controller);
+            //     $methods = $class->getmethods();
+            //     var_dump($methods);
+            //     exit;
+            // }
             $result = $controller->runAction($actionID, $params);
             if ($oldController !== null) {
                 Yii::$app->controller = $oldController;
             }
-
             return $result;
         }
         $id = $this->getUniqueId();
@@ -634,8 +641,8 @@ class Module extends ServiceLocator
         if (strpos($className, '-') !== false || !class_exists($className)) {
             return null;
         }
-
         if (is_subclass_of($className, 'yii\base\Controller')) {
+            //通过DI容器获取控制器对象实例
             $controller = Yii::createObject($className, [$id, $this]);
             return get_class($controller) === $className ? $controller : null;
         } elseif (YII_DEBUG) {
