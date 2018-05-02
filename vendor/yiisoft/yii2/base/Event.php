@@ -266,7 +266,6 @@ class Event extends BaseObject
             }
             $wildcardEventHandlers = array_merge($wildcardEventHandlers, $classHandlers);
         }
-
         if (empty(self::$_events[$name]) && empty($wildcardEventHandlers)) {
             return;
         }
