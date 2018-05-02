@@ -37,6 +37,7 @@ class InlineAction extends Action
     public function __construct($id, $controller, $actionMethod, $config = [])
     {
         $this->actionMethod = $actionMethod;
+        //将请求对象注入到插件中去
         parent::__construct($id, $controller, $config);
     }
 

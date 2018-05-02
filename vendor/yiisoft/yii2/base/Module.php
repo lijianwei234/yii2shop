@@ -527,7 +527,7 @@ class Module extends ServiceLocator
             $oldController = Yii::$app->controller;
             //给yii\web\Application设置controller属性
             Yii::$app->controller = $controller;
-            // if ($route == 'product/index') {
+            // if ($route == 'product/detail') {
             //     $class = new \ReflectionClass($controller);
             //     $methods = $class->getmethods();
             //     var_dump($methods);

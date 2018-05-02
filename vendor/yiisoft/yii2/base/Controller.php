@@ -231,14 +231,17 @@ class Controller extends Component implements ViewContextInterface
         if ($id === '') {
             $id = $this->defaultAction;
         }
-
         $actionMap = $this->actions();
         if (isset($actionMap[$id])) {
             return Yii::createObject($actionMap[$id], [$id, $this]);
         } elseif (preg_match('/^[a-z0-9\\-_]+$/', $id) && strpos($id, '--') === false && trim($id, '-') === $id) {
+            //方法名是以小写字母、数字、中线、下划线开头
+            //方法名中不包含--
+            //id两端不包括中线
             $methodName = 'action' . str_replace(' ', '', ucwords(implode(' ', explode('-', $id))));
             if (method_exists($this, $methodName)) {
                 $method = new \ReflectionMethod($this, $methodName);
+                //使用的方法必须是public的方法
                 if ($method->isPublic() && $method->getName() === $methodName) {
                     return new InlineAction($id, $this, $methodName);
                 }

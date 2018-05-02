@@ -79,6 +79,7 @@ class Application extends \yii\base\Application
     {
         if (empty($this->catchAll)) {
             try {
+                //返回路径和路径对应的参数
                 list($route, $params) = $request->resolve();
             } catch (UrlNormalizerRedirectException $e) {
                 $url = $e->url;

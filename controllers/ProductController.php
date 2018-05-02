@@ -14,4 +14,10 @@ class ProductController extends Controller
 		//\yii2\base\View.php
 		return $this->render('index');
 	}
+
+	public function actionDetail()
+	{
+		$this->layout = false;
+		return $this->render('detail');
+	}
 }

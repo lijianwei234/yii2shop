@@ -269,7 +269,7 @@ class Request extends \yii\base\Request
      */
     public function resolve()
     {
-        //获取请求参数,如果未开启enablePrettyUrl,获取到对应的get参数路径
+        //获取请求参数,如果未开启enablePrettyUrl,获取到对应的get参数路径以及一个空数组
         $result = Yii::$app->getUrlManager()->parseRequest($this);
         if ($result !== false) {
             list($route, $params) = $result;
