@@ -160,6 +160,10 @@ class Application extends \yii\base\Application
      */
     public function getRequest()
     {
+        // $class = new \ReflectionClass($this);
+        // $methods = $class->getmethods();
+        // var_dump($methods);
+        // exit;
         return $this->get('request');
     }
 

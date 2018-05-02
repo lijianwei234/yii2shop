@@ -127,13 +127,11 @@ class ServiceLocator extends Component
         if (isset($this->_components[$id])) {
             return $this->_components[$id];
         }
-
         if (isset($this->_definitions[$id])) {
             $definition = $this->_definitions[$id];
             if (is_object($definition) && !$definition instanceof Closure) {
                 return $this->_components[$id] = $definition;
             }
-
             return $this->_components[$id] = Yii::createObject($definition);
         } elseif ($throwException) {
             throw new InvalidConfigException("Unknown component ID: $id");

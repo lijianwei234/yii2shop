@@ -149,14 +149,15 @@ class Container extends Component
      */
     public function get($class, $params = [], $config = [])
     {
+        // if ($class == 'yii\web\Request') {
+        //     var_dump(isset($this->_singletons[$class]));
+        //     var_dump(!isset($this->_definitions[$class]));
+        //     exit;
+        // }
         if (isset($this->_singletons[$class])) {
             // singleton
             return $this->_singletons[$class];
         } elseif (!isset($this->_definitions[$class])) {
-            // if ($class == 'app\controllers\ProductController') {
-            //     echo 123;
-            //     exit;
-            // }
             return $this->build($class, $params, $config);
         }
         $definition = $this->_definitions[$class];
