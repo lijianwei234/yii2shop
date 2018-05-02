@@ -165,9 +165,7 @@ class Controller extends Component implements ViewContextInterface
             //     exit;
             // }
             $result = $action->runWithParams($params);
-
             $result = $this->afterAction($action, $result);
-
             // call afterAction on modules
             foreach ($modules as $module) {
                 /* @var $module Module */
@@ -284,6 +282,10 @@ class Controller extends Component implements ViewContextInterface
     public function beforeAction($action)
     {
         $event = new ActionEvent($action);
+        // $class = new \ReflectionClass($this);
+        // $methods = $class->getmethods();
+        // var_dump($methods);
+        // exit;
         $this->trigger(self::EVENT_BEFORE_ACTION, $event);
         return $event->isValid;
     }

@@ -333,11 +333,15 @@ class Response extends \yii\base\Response
         if ($this->isSent) {
             return;
         }
+        // $class = new \ReflectionClass($this);
+        // $methods = $class->getmethods();
+        // var_dump($methods);
+        // exit;
         $this->trigger(self::EVENT_BEFORE_SEND);
         $this->prepare();
         $this->trigger(self::EVENT_AFTER_PREPARE);
-        $this->sendHeaders();
-        $this->sendContent();
+        $this->sendHeaders();//设置头信息
+        $this->sendContent();//显示页面内容
         $this->trigger(self::EVENT_AFTER_SEND);
         $this->isSent = true;
     }
@@ -412,13 +416,11 @@ class Response extends \yii\base\Response
     {
         if ($this->stream === null) {
             echo $this->content;
-
             return;
         }
 
         set_time_limit(0); // Reset time limit for big files
         $chunkSize = 8 * 1024 * 1024; // 8MB per chunk
-
         if (is_array($this->stream)) {
             list($handle, $begin, $end) = $this->stream;
             fseek($handle, $begin);

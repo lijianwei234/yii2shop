@@ -259,10 +259,6 @@ class Event extends BaseObject
      */
     public static function trigger($class, $name, $event = null)
     {
-        // if ($name == 'beforeAction') {
-        //     var_dump(empty(self::$_events[$name]) && empty($wildcardEventHandlers));
-        //     exit;
-        // }
         $wildcardEventHandlers = [];
         foreach (self::$_eventWildcards as $nameWildcard => $classHandlers) {
             if (!StringHelper::matchWildcard($nameWildcard, $name)) {
@@ -280,7 +276,6 @@ class Event extends BaseObject
         }
         $event->handled = false;
         $event->name = $name;
-
         if (is_object($class)) {
             if ($event->sender === null) {
                 $event->sender = $class;

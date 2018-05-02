@@ -417,7 +417,6 @@ class Module extends ServiceLocator
 
             return $module === null ? null : $module->getModule(substr($id, $pos + 1), $load);
         }
-
         if (isset($this->_modules[$id])) {
             if ($this->_modules[$id] instanceof self) {
                 return $this->_modules[$id];
@@ -583,7 +582,6 @@ class Module extends ServiceLocator
             $id = $route;
             $route = '';
         }
-
         // module and controller map take precedence
         if (isset($this->controllerMap[$id])) {
             $controller = Yii::createObject($this->controllerMap[$id], [$id, $this]);

@@ -116,12 +116,12 @@ class Controller extends \yii\base\Controller
      */
     public function bindActionParams($action, $params)
     {
+        //返回这个控制器中所有的方法
         if ($action instanceof InlineAction) {
             $method = new \ReflectionMethod($this, $action->actionMethod);
         } else {
             $method = new \ReflectionMethod($action, 'run');
         }
-
         $args = [];
         $missing = [];
         $actionParams = [];
@@ -152,7 +152,6 @@ class Controller extends \yii\base\Controller
         }
 
         $this->actionParams = $actionParams;
-
         return $args;
     }
 
