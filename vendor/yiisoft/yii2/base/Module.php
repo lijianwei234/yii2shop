@@ -224,7 +224,6 @@ class Module extends ServiceLocator
             $class = new \ReflectionClass($this);
             $this->_basePath = dirname($class->getFileName());
         }
-
         return $this->_basePath;
     }
 
@@ -289,7 +288,6 @@ class Module extends ServiceLocator
         if ($this->_layoutPath === null) {
             $this->_layoutPath = $this->getViewPath() . DIRECTORY_SEPARATOR . 'layouts';
         }
-
         return $this->_layoutPath;
     }
 

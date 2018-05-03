@@ -154,6 +154,10 @@ class View extends Component implements DynamicContentAwareInterface
     {
         //返回视图文件存放路径
         $viewFile = $this->findViewFile($view, $context);
+        // $class = new \ReflectionClass($this);
+        // $methods = $class->getmethods();
+        // var_dump($methods);
+        // exit;
         return $this->renderFile($viewFile, $params, $context);
     }
 
@@ -226,7 +230,6 @@ class View extends Component implements DynamicContentAwareInterface
     public function renderFile($viewFile, $params = [], $context = null)
     {
         $viewFile = Yii::getAlias($viewFile);
-
         if ($this->theme !== null) {
             $viewFile = $this->theme->applyTo($viewFile);
         }

@@ -396,6 +396,10 @@ class Controller extends Component implements ViewContextInterface
      */
     public function render($view, $params = [])
     {
+        // $class = new \ReflectionClass($this);
+        // $methods = $class->getmethods();
+        // var_dump($methods);
+        // exit;
         $content = $this->getView()->render($view, $params, $this);
         return $this->renderContent($content);
     }
@@ -478,7 +482,6 @@ class Controller extends Component implements ViewContextInterface
         if ($this->_viewPath === null) {
             $this->_viewPath = $this->module->getViewPath() . DIRECTORY_SEPARATOR . $this->id;
         }
-
         return $this->_viewPath;
     }
 
@@ -502,6 +505,10 @@ class Controller extends Component implements ViewContextInterface
      */
     public function findLayoutFile($view)
     {
+        // $class = new \ReflectionClass($this);
+        // $methods = $class->getProperties();
+        // var_dump($methods);
+        // exit;
         $module = $this->module;
         if (is_string($this->layout)) {
             $layout = $this->layout;
