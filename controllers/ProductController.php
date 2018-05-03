@@ -6,7 +6,7 @@ class ProductController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->layout = false;
+		$this->layout = 'layout2';
 		// $class = new \ReflectionClass($this);
 		// $methods = $class->getmethods();
 		// var_dump($methods);
@@ -17,7 +17,7 @@ class ProductController extends Controller
 
 	public function actionDetail()
 	{
-		$this->layout = false;
+		$this->layout = 'layout2';
 		return $this->render('detail');
 	}
 }

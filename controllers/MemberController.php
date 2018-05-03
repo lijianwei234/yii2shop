@@ -6,7 +6,7 @@ class MemberController extends Controller
 {
 	public function actionAuth()
 	{
-		$this->layout = false;
+		$this->layout = 'layout2';
 		return $this->render('auth');
 	}
 }

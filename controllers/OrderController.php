@@ -5,7 +5,7 @@ class OrderController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->layout = false;
+		$this->layout = 'layout2';
 		return $this->render('index');
 	}
 
