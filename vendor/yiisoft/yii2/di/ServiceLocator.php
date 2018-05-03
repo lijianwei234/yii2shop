@@ -136,7 +136,6 @@ class ServiceLocator extends Component
         } elseif ($throwException) {
             throw new InvalidConfigException("Unknown component ID: $id");
         }
-
         return null;
     }
 
